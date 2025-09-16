@@ -1,0 +1,11 @@
+    services:
+      nginx:
+        container_name: nginx-web
+        image: nginx:latest
+        ports:
+          - "8081:80" #port 8080 is already In use
+        volumes:
+          - /home/enrique/config/nginx/nginx.conf:/etc/nginx/nginx.conf # Mount custom Nginx config
+          - /home/enrique/config/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf # Mount additional config file config.d
+          - /giganten/arkiv/prosjekt/basedDatabase:/usr/share/nginx/html # Directory with html files
+        restart: unless-stopped # Restarts with the host

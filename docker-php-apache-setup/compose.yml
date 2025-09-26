@@ -1,0 +1,27 @@
+services:
+  web:
+    image: php:8.4.12-apache
+    container_name: php-apache
+    volumes:
+      - <insert path to config directory>:/etc/apache2
+      - <insert path to stored html/php files directory>:/var/www/html
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    container_name: mysql-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: insert root password
+      MYSQL_DATABASE: dataBased
+      MYSQL_USER: insert username
+      MYSQL_PASSWORD: insert password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
